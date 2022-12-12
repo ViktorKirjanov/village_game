@@ -1,13 +1,26 @@
 import 'package:flame/components.dart';
+import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flame/sprite.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
+import 'package:village_game/button_controller.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  Flame.device.fullScreen();
   runApp(
-    GameWidget(
-      game: VillageGame(),
+    MaterialApp(
+      home: Scaffold(
+        body: GameWidget<VillageGame>.controlled(
+          gameFactory: VillageGame.new,
+          overlayBuilderMap: {
+            'ButtonController': (_, game) => ButtonController(game: game),
+          },
+          initialActiveOverlays: const ['ButtonController'],
+        ),
+      ),
     ),
   );
 }
@@ -22,6 +35,7 @@ class VillageGame extends FlameGame with TapDetector {
   late SpriteAnimation idleAnimation;
   final double animationSpeed = .15;
   final double characterSpeed = 100;
+  final String soundTrackName = 'smile';
 
   late SpriteAnimationComponent character;
   late SpriteComponent background;
@@ -31,6 +45,10 @@ class VillageGame extends FlameGame with TapDetector {
   @override
   Future<void> onLoad() async {
     await super.onLoad();
+
+    //add audio
+    FlameAudio.bgm.initialize();
+    await FlameAudio.audioCache.load('smile.mp3');
 
     //add background
     final Sprite backgroundSprite = await loadSprite('village_bg.png');
