@@ -7,6 +7,7 @@ import 'package:flame_tiled/flame_tiled.dart';
 import 'package:flutter/material.dart';
 import 'package:village_game/bloc/inventory_cubit/inventory_cubit.dart';
 import 'package:village_game/flame_layer/actors/hero.dart';
+import 'package:village_game/flame_layer/dialogs/dialog_box.dart';
 import 'package:village_game/flame_layer/loaders/add_baked_goods.dart';
 import 'package:village_game/flame_layer/loaders/add_friends.dart';
 
@@ -31,26 +32,29 @@ class VillageGame extends FlameGame with TapDetector, HasCollisionDetection {
   late double mapWidth;
   late double mapHeight;
 
-  int bakedGoodsInventory = 0;
-  int foundFriends = 0;
-
   Direction direction = Direction.idle;
+
+  late DialogBox dialogBox;
+
+  String dialogMessage = 'Hi.  I am George.  I have just '
+      'moved to Happy Bay Village. '
+      'I want to make friends.';
 
   @override
   Future<void> onLoad() async {
     await super.onLoad();
 
-    //add audio
+    // add audio
     FlameAudio.bgm.initialize();
     await FlameAudio.audioCache.load('smile.mp3');
 
-    //add map
+    // add map
     mapComponent = await TiledComponent.load('village.tmx', Vector2.all(16));
     await add(mapComponent);
     mapWidth = mapComponent.tileMap.map.width * 16.0;
     mapHeight = mapComponent.tileMap.map.height * 16.0;
 
-    //add character
+    // add character
     final spriteSheet = SpriteSheet(
       image: await images.load('george2.png'),
       srcSize: Vector2(48.0, 48.0),
@@ -78,7 +82,11 @@ class VillageGame extends FlameGame with TapDetector, HasCollisionDetection {
     await addFriends(mapComponent, this);
     await add(character);
 
-    //add camera
+    // add init dialog
+    dialogBox = DialogBox(text: dialogMessage, game: this);
+    await add(dialogBox);
+
+    // add camera
     camera.followComponent(
       character,
       worldBounds: Rect.fromLTWH(

@@ -12,9 +12,15 @@ class InventoryCubit extends Cubit<InventoryState> {
         ),
       );
 
-  void incrementItems() => emit(
+  void increaseItems() => emit(
         state.copyWith(
           items: state.items + 1,
+        ),
+      );
+
+  void decreaseItems() => emit(
+        state.copyWith(
+          items: state.items - 1,
         ),
       );
 }
