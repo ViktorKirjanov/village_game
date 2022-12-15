@@ -29,38 +29,54 @@ class _DashboardControllerState extends State<DashboardController> {
 
 class _FriendsCounter extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => Row(
-        children: [
-          Image.asset('assets/images/22_cheesecake.png'),
-          const SizedBox(width: 5.0),
-          BlocBuilder<InventoryCubit, InventoryState>(
-            builder: (_, state) => Text(
-              state.friends.toString(),
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 24.0,
+  Widget build(BuildContext context) => Container(
+        color: Colors.black38,
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            Container(
+              height: 32.0,
+              width: 32.0,
+              child: Image.asset('assets/images/friend.png'),
+            ),
+            const SizedBox(width: 5.0),
+            BlocBuilder<InventoryCubit, InventoryState>(
+              builder: (_, state) => Text(
+                state.friends.toString(),
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 24.0,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       );
 }
 
 class _ItemsCounter extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => Row(
-        children: [
-          Image.asset('assets/images/22_cheesecake.png'),
-          const SizedBox(width: 5.0),
-          BlocBuilder<InventoryCubit, InventoryState>(
-            builder: (_, state) => Text(
-              state.items.toString(),
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 24.0,
+  Widget build(BuildContext context) => Container(
+        color: Colors.black38,
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            Container(
+              height: 32.0,
+              width: 32.0,
+              child: Image.asset('assets/images/22_cheesecake.png'),
+            ),
+            const SizedBox(width: 5.0),
+            BlocBuilder<InventoryCubit, InventoryState>(
+              builder: (_, state) => Text(
+                state.items.toString(),
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 24.0,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       );
 }

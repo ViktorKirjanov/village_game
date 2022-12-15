@@ -49,7 +49,7 @@ class VillageGame extends FlameGame with TapDetector, HasCollisionDetection {
     await FlameAudio.audioCache.load('smile.mp3');
 
     // add map
-    mapComponent = await TiledComponent.load('village.tmx', Vector2.all(16));
+    mapComponent = await TiledComponent.load('village_2.tmx', Vector2.all(16));
     await add(mapComponent);
     mapWidth = mapComponent.tileMap.map.width * 16.0;
     mapHeight = mapComponent.tileMap.map.height * 16.0;
@@ -73,8 +73,8 @@ class VillageGame extends FlameGame with TapDetector, HasCollisionDetection {
 
     character = HeroComponent()
       ..animation = downAnimation
-      ..position = Vector2(100, 100)
-      ..size = Vector2.all(48 * 2)
+      ..position = Vector2(600, 300)
+      ..size = Vector2.all(48 * 1.5)
       ..debugMode = true
       ..debugColor = Colors.red;
 
