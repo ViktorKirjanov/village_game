@@ -10,6 +10,7 @@ import 'package:village_game/flame_layer/actors/hero.dart';
 import 'package:village_game/flame_layer/dialogs/dialog_box.dart';
 import 'package:village_game/flame_layer/loaders/add_baked_goods.dart';
 import 'package:village_game/flame_layer/loaders/add_friends.dart';
+import 'package:village_game/flame_layer/loaders/add_obstacle.dart';
 
 enum Direction { idle, down, left, top, right }
 
@@ -33,6 +34,7 @@ class VillageGame extends FlameGame with TapDetector, HasCollisionDetection {
   late double mapHeight;
 
   Direction direction = Direction.idle;
+  Direction? collisionDirection;
 
   late DialogBox dialogBox;
 
@@ -79,6 +81,7 @@ class VillageGame extends FlameGame with TapDetector, HasCollisionDetection {
       ..debugColor = Colors.red;
 
     await addBakedGoods(mapComponent, this);
+    await addObstacle(mapComponent, this);
     await addFriends(mapComponent, this);
     await add(character);
 
@@ -109,25 +112,33 @@ class VillageGame extends FlameGame with TapDetector, HasCollisionDetection {
       case Direction.down:
         character.animation = downAnimation;
         if (character.y < mapHeight - character.height) {
-          character.y += dt * characterSpeed;
+          if (collisionDirection != Direction.down) {
+            character.y += dt * characterSpeed;
+          }
         }
         break;
       case Direction.left:
         character.animation = leftAnimation;
         if (character.x > 0) {
-          character.x -= dt * characterSpeed;
+          if (collisionDirection != Direction.left) {
+            character.x -= dt * characterSpeed;
+          }
         }
         break;
       case Direction.top:
         character.animation = upAnimation;
         if (character.y > 0) {
-          character.y -= dt * characterSpeed;
+          if (collisionDirection != Direction.top) {
+            character.y -= dt * characterSpeed;
+          }
         }
         break;
       case Direction.right:
         character.animation = rightAnimation;
         if (character.x < mapWidth - character.width) {
-          character.x += dt * characterSpeed;
+          if (collisionDirection != Direction.right) {
+            character.x += dt * characterSpeed;
+          }
         }
         break;
     }

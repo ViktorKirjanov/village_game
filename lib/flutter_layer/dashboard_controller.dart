@@ -34,7 +34,7 @@ class _FriendsCounter extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Row(
           children: [
-            Container(
+            SizedBox(
               height: 32.0,
               width: 32.0,
               child: Image.asset('assets/images/friend.png'),
@@ -61,7 +61,7 @@ class _ItemsCounter extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Row(
           children: [
-            Container(
+            SizedBox(
               height: 32.0,
               width: 32.0,
               child: Image.asset('assets/images/22_cheesecake.png'),
