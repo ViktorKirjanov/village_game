@@ -10,5 +10,5 @@
 
  | Game|
  |-----------|
- |<img src="/Users/viktorkirjanov/FlutterWorkspace/village_game/screenshots/Simulator Screen Shot - iPhone X - 2022-12-13 at 19.40.04.png" width="400" >
+ |<img src="screenshots/Simulator Screen Shot - iPhone X - 2022-12-13 at 19.40.04.png" width="400" >
 
