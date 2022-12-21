@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:village_game/bloc/cubit/background_sound_cubit.dart';
+import 'package:village_game/bloc/background_sound_cubit/background_sound_cubit.dart';
 
 class ButtonController extends StatefulWidget {
   const ButtonController({super.key});

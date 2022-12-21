@@ -5,9 +5,9 @@ import 'package:flame/sprite.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:flutter/material.dart';
+import 'package:village_game/bloc/dialog_cubit/dialog_cubit.dart';
 import 'package:village_game/bloc/inventory_cubit/inventory_cubit.dart';
 import 'package:village_game/flame_layer/actors/hero.dart';
-import 'package:village_game/flame_layer/dialogs/dialog_box.dart';
 import 'package:village_game/flame_layer/loaders/add_baked_goods.dart';
 import 'package:village_game/flame_layer/loaders/add_friends.dart';
 import 'package:village_game/flame_layer/loaders/add_obstacle.dart';
@@ -15,9 +15,13 @@ import 'package:village_game/flame_layer/loaders/add_obstacle.dart';
 enum Direction { idle, down, left, top, right }
 
 class VillageGame extends FlameGame with TapDetector, HasCollisionDetection {
-  VillageGame({required this.inventoryCubit});
+  VillageGame({
+    required this.inventoryCubit,
+    required this.dialogCubit,
+  });
 
   final InventoryCubit inventoryCubit;
+  final DialogCubit dialogCubit;
 
   late SpriteAnimation downAnimation;
   late SpriteAnimation leftAnimation;
@@ -36,9 +40,7 @@ class VillageGame extends FlameGame with TapDetector, HasCollisionDetection {
   Direction direction = Direction.idle;
   Direction? collisionDirection;
 
-  late DialogBox dialogBox;
-
-  String dialogMessage = 'Hi.  I am George.  I have just '
+  String initDialogMessage = 'Hi.  I am George.  I have just '
       'moved to Happy Bay Village. '
       'I want to make friends.';
 
@@ -86,8 +88,7 @@ class VillageGame extends FlameGame with TapDetector, HasCollisionDetection {
     await add(character);
 
     // add init dialog
-    dialogBox = DialogBox(text: dialogMessage, game: this);
-    await add(dialogBox);
+    dialogCubit.addDialog(initDialogMessage);
 
     // add camera
     camera.followComponent(

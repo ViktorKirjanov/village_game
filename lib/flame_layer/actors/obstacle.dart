@@ -25,7 +25,6 @@ class ObstacleComponent extends PositionComponent
     if (other is HeroComponent) {
       if (!_isCollided) {
         _isCollided = true;
-        // gameRef.direction = Direction.idle;
         gameRef.collisionDirection = gameRef.direction;
       }
     }
